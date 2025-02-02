@@ -16,7 +16,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <AuthenticatedLayout>
             <Head title="Welcome" />
-            <div className="hero bg-gray-200 min-h-screen h-[300px]">
+            <div className="hero bg-gray-200 min-h-screen h-[30px]">
                 <div className="hero-content text-center">
                     <div className="max-w-md">
                         <h1 className="text-5xl font-bold">Hello there</h1>
