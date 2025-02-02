@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -20,20 +20,31 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
+            'status'           => session('status'),
         ]);
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): \Symfony\Component\HttpFoundation\Response
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        /** @var User $user */
+        $user = Auth::user();
+
+        $route = "/";
+
+        if ($user->hasAnyRole([RolesEnum::Admin->value, RolesEnum::Vendor->value])) {
+            return Inertia::location(route('filament.admin.pages.dashboard'));
+        } else {
+            $route = route('dashboard', absolute: false);
+        }
+
+        return redirect()->intended($route);
     }
 
     /**
