@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
+use App\Filament\Resources\DepartmentResource\RelationManagers\CategoriesRelationManager;
 use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
 
@@ -67,7 +68,7 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+           CategoriesRelationManager::class
         ];
     }
 
