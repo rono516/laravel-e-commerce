@@ -25,6 +25,7 @@ return new class extends Migration
                 ->constrained('categories');
             $table->decimal('price', 20, 4);
             $table->string('status')->index();
+            $table->string('image')->nullable();
             $table->integer('quantity')->nullable();
             $table->foreignIdFor(User::class, 'created_by');
             $table->foreignIdFor(User::class, 'updated_by');
